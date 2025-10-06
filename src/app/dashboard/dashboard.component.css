@@ -1,0 +1,75 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+  color: #2d3748;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Menú lateral */
+.sidebar {
+  width: 240px;
+  background: #2b6cb0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.sidebar-header h2 {
+
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+.menu button {
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #2b6cb0;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu button:hover {
+  background: #ebf8ff;
+}
+
+.menu .logout {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.menu .logout:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Contenido */
+.dashboard-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.content-header h2 {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 15px;
+  margin-bottom: 24px;
+}

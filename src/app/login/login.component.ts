@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  standalone: false
+  styleUrl: './login.component.css',
+  standalone: false,
 })
 export class LoginComponent {
   usuario = '';
@@ -15,15 +16,14 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
-  this.authService.login(this.usuario, this.contrasena).subscribe({
-    next: (res) => {
-      this.authService.guardarSesion(res.token, { usuario: res.usuario, rol: res.rol });
-      this.router.navigate(['/dashboard']);
-    },
-    error: (err) => {
-      this.error = err.error?.error || 'Error al iniciar sesión';
-    }
-  });
-}
-
+    this.authService.login(this.usuario, this.contrasena).subscribe({
+      next: (res) => {
+        this.authService.guardarSesion(res.token, res.user);
+        this.router.navigate(['/dashboard'], { replaceUrl: true });
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
 }

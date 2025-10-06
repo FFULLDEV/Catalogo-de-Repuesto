@@ -1,0 +1,48 @@
+<main class="dashboard-content">
+  <div class="content-header">
+    <h2>Repuestos Deshabilitados</h2>
+    <p class="subtitle">Lista de repuestos que están actualmente inactivos</p>
+  </div>
+
+  <div *ngIf="showAlert" class="alert-box">
+    {{ alertMessage }}
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Descripción</th>
+          <th>Precio (S/)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repuesto of repuestosInactivos">
+          <td>{{ repuesto.id }}</td>
+          <td>
+            <img [src]="getImagenUrl(repuesto.imagen)" class="tabla-img" />
+            <span *ngIf="!repuesto.imagen" class="no-img">Sin imagen</span>
+          </td>
+          <td>{{ repuesto.nombre }}</td>
+          <td>{{ repuesto.marca }}</td>
+          <td>{{ repuesto.descripcion }}</td>
+          <td>{{ repuesto.precio | currency : "PEN" : "symbol" : "1.2-2" }}</td>
+          <td>
+            <span class="inactivo">Inactivo</span>
+          </td>
+          <td class="acciones">
+            <button class="toggle" (click)="toggleRepuesto(repuesto.id)">
+              Activar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

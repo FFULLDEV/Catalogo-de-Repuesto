@@ -1,0 +1,161 @@
+<!-- Contenido -->
+<main class="dashboard-content">
+  <div class="content-header">
+    <h2>Gestión de Repuestos</h2>
+    <button class="crear" (click)="openCreateModal()">Crear Repuesto</button>
+  </div>
+
+  <div *ngIf="showAlert" class="alert-box">
+    {{ alertMessage }}
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Descripción</th>
+          <th>Precio (S/)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repuesto of repuestos">
+          <td>{{ repuesto.id }}</td>
+          <td>
+            <img [src]="getImagenUrl(repuesto.imagen)" class="tabla-img" />
+            <span *ngIf="!repuesto.imagen" class="no-img">Sin imagen</span>
+          </td>
+          <td>{{ repuesto.nombre }}</td>
+          <td>{{ repuesto.marca }}</td>
+          <td>{{ repuesto.descripcion }}</td>
+          <td>
+            {{ repuesto.precio | currency : "PEN" : "symbol" : "1.2-2" }}
+          </td>
+          <td>
+            <span
+              [class.activo]="repuesto.activo"
+              [class.inactivo]="!repuesto.activo"
+            >
+              {{ repuesto.activo ? "Activo" : "Inactivo" }}
+            </span>
+          </td>
+          <td class="acciones">
+            <button class="edit" (click)="openEditModal(repuesto)">
+              Editar
+            </button>
+            <button class="toggle" (click)="toggleRepuesto(repuesto.id)">
+              {{ repuesto.activo ? "Desactivar" : "Activar" }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Modal Crear -->
+<div class="modal-overlay" *ngIf="showCreateModal">
+  <div class="modal">
+    <h3>Nuevo Repuesto</h3>
+    <form (ngSubmit)="crearProducto()">
+      <label>Nombre</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevoRepuesto.nombre"
+        name="nombre"
+        required
+      />
+
+      <label>Marca</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevoRepuesto.marca"
+        name="marca"
+        required
+      />
+
+      <label>Descripción</label>
+      <textarea
+        [(ngModel)]="nuevoRepuesto.descripcion"
+        name="descripcion"
+        required
+      ></textarea>
+
+      <label>Precio</label>
+      <input
+        type="number"
+        [(ngModel)]="nuevoRepuesto.precio"
+        name="precio"
+        required
+      />
+
+      <label>Imagen</label>
+      <input type="file" (change)="onFileSelected($event)" />
+
+      <div class="modal-buttons">
+        <button type="submit" [disabled]="loadingCrear">
+          {{ loadingCrear ? "Guardando..." : "Guardar" }}
+        </button>
+        <button type="button" class="cancelar" (click)="closeCreateModal()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal-overlay" *ngIf="showEditModal">
+  <div class="modal">
+    <h3>Editar Repuesto</h3>
+    <form (ngSubmit)="editarProducto()">
+      <label>Nombre</label>
+      <input
+        type="text"
+        [(ngModel)]="repuestoEditando.nombre"
+        name="editNombre"
+        required
+      />
+
+      <label>Marca</label>
+      <input
+        type="text"
+        [(ngModel)]="repuestoEditando.marca"
+        name="editMarca"
+        required
+      />
+
+      <label>Descripción</label>
+      <textarea
+        [(ngModel)]="repuestoEditando.descripcion"
+        name="editDescripcion"
+        required
+      ></textarea>
+
+      <label>Precio</label>
+      <input
+        type="number"
+        [(ngModel)]="repuestoEditando.precio"
+        name="editPrecio"
+        required
+      />
+
+      <label>Imagen</label>
+      <input type="file" (change)="onEditFileSelected($event)" />
+
+      <div class="modal-buttons">
+        <button type="submit" [disabled]="loadingEditar">
+          {{ loadingEditar ? "Actualizando..." : "Actualizar" }}
+        </button>
+        <button type="button" class="cancelar" (click)="closeEditModal()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private API_URL = 'http://localhost:3000/auth';
@@ -13,7 +13,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(usuario: string, contrasena: string): Observable<any> {
-    return this.http.post<any>(`${this.API_URL}/login`, { usuario, contrasena });
+    return this.http.post<any>(`${this.API_URL}/login`, {
+      usuario,
+      contrasena,
+    });
   }
 
   guardarSesion(token: string, user: any) {
@@ -32,7 +35,7 @@ export class AuthService {
 
   isAdmin(): boolean {
     const user = this.obtenerUsuario();
-    return user && user.rol === 'admin';
+    return user && user.rol_id === 1;
   }
 
   eliminarToken() {
@@ -44,4 +47,3 @@ export class AuthService {
     return !!this.obtenerToken();
   }
 }
-

@@ -10,20 +10,23 @@ export interface Repuesto {
   precio: number;
   imagen: string;
   activo: any;
-  selected?: boolean; // Propiedad opcional para seguimiento de selección
+  selected?: boolean;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiRepuestosService {
+  private apiUrl = 'http://localhost:3000/repuestos';
 
-  private apiUrl = 'http://localhost:3000/repuestos'; // Reemplaza con la URL real de tu API
-
-  constructor( private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getRepuestos(): Observable<Repuesto[]> {
     return this.http.get<Repuesto[]>(this.apiUrl);
+  }
+
+  getDeshabilitados(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/deshabilitados`);
   }
 
   getRepuesto(id: number): Observable<Repuesto> {
@@ -34,7 +37,12 @@ export class ApiRepuestosService {
     return this.http.post<Repuesto>(this.apiUrl, data);
   }
 
-  deshabilitarRepuesto(id: number): Observable<Repuesto> {
-    return this.http.patch<Repuesto>(`${this.apiUrl}/${id}/deshabilitar`, {});
+  toggleRepuesto(id: number): Observable<Repuesto> {
+    return this.http.patch<Repuesto>(`${this.apiUrl}/${id}/toggle`, {});
+  }
+
+  // También devuelve el Observable
+  actualizarRepuesto(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, data);
   }
 }

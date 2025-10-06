@@ -1,3 +1,24 @@
+<div class="dashboard-layout">
+  <!-- Menú lateral -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
 
+    <nav class="menu">
+      <button routerLink="repuestos" routerLinkActive="active">
+        Repuestos
+      </button>
 
+      <button routerLink="repuestos-deshabilitados" routerLinkActive="active">
+        Deshabilitados
+      </button>
+      <button class="logout" (click)="logout()">Cerrar sesión</button>
+    </nav>
+  </aside>
 
+  <!-- Contenido dinámico -->
+  <main class="dashboard-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
