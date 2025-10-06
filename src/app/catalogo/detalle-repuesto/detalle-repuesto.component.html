@@ -1,53 +1,11 @@
-<div *ngFor="let repuesto of repuestos">
-  <h3>{{ repuesto.nombre }}</h3>
-  <img [src]="'http://localhost:3000'+repuesto.imagen" alt="Foto">
-  <p>Marca: {{ repuesto.marca }}</p>
-  <p>{{ repuesto.descripcion }}</p>
-  <p class="precio">S/ {{ repuesto.precio }}</p>
+<div class="productos-container">
+  <div *ngFor="let repuesto of repuestos" class="producto">
+    <h3>{{ repuesto.nombre }}</h3>
+    <img [src]="'http://localhost:3000' + repuesto.imagen" alt="Foto" />
+    <p>Marca: {{ repuesto.marca }}</p>
+    <p>{{ repuesto.descripcion }}</p>
+    <p class="precio">S/ {{ repuesto.precio }}</p>
+  </div>
 </div>
 
 <button (click)="abrirWhatsApp()">Enviar WhatsApp</button>
-<style>
-  div {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-  }
-
-  h3 {
-    margin-top: 0;
-    color: #333;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-
-  .precio {
-    font-weight: bold;
-    color: #007bff;
-    font-size: 1.2em;
-  }
-
-  button {
-    background-color: #25d366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #128c7e;
-  }
-</style>

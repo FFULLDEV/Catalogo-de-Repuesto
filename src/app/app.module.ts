@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LoginModule } from './login/login.module';
+import { CatalogoModule } from './catalogo/catalogo.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { LoginModule } from './login/login.module';
     HttpClientModule,
     DashboardModule,
     LoginModule,
+    CatalogoModule,
   ],
   providers: [
     {

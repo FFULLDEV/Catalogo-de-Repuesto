@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { ListaRepuestosComponent } from './catalogo/lista-repuestos/lista-repuestos.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: ListaRepuestosComponent,
+  },
   {
     path: 'login',
     loadChildren: () =>
@@ -16,8 +21,8 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
   },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
 ];
 
 @NgModule({

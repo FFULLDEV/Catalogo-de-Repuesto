@@ -1,13 +1,16 @@
-
 <div class="busqueda">
-  <input type="text" placeholder="Buscar repuesto" [(ngModel)]="filtro">
+  <input type="text" placeholder="Buscar repuesto" [(ngModel)]="filtro" />
   <button class="btn-pedido" (click)="abrirModal()">Hacer pedido</button>
 </div>
 
 <div class="grid">
-  <div class="card" *ngFor="let repuesto of repuestosFiltrados" 
-       (click)="toggleSeleccion(repuesto)" [class.selected]="repuesto.selected">
-    <img [src]="'http://localhost:3000'+repuesto.imagen" alt="Foto">
+  <div
+    class="card"
+    *ngFor="let repuesto of repuestosFiltrados"
+    (click)="toggleSeleccion(repuesto)"
+    [class.selected]="repuesto.selected"
+  >
+    <img [src]="'http://localhost:3000' + repuesto.imagen" alt="Foto" />
     <h3>{{ repuesto.nombre }}</h3>
     <p>Marca: {{ repuesto.marca }}</p>
     <p>{{ repuesto.descripcion }}</p>
@@ -15,8 +18,11 @@
 
     <!-- Checkbox abajo -->
     <div class="checkbox-container">
-      <input type="checkbox" [checked]="repuesto.selected" 
-             (click)="$event.stopPropagation(); toggleSeleccion(repuesto)">
+      <input
+        type="checkbox"
+        [checked]="repuesto.selected"
+        (click)="$event.stopPropagation(); toggleSeleccion(repuesto)"
+      />
       <label>Seleccionar</label>
     </div>
   </div>
@@ -26,6 +32,26 @@
 <div class="modal" *ngIf="repuestoSeleccionado">
   <div class="modal-content">
     <span class="cerrar" (click)="cerrarModal()">&times;</span>
-    <app-detalle-repuesto [repuestos]="repuestosSeleccionados"></app-detalle-repuesto>
+
+    <div
+      *ngIf="repuestosSeleccionados.length > 0; else noSeleccion"
+      class="productos-modal"
+    >
+      <div *ngFor="let repuesto of repuestosSeleccionados" class="producto">
+        <h3>{{ repuesto.nombre }}</h3>
+        <img [src]="repuesto.imagen" alt="Foto" />
+        <p>Marca: {{ repuesto.marca }}</p>
+        <p>{{ repuesto.descripcion }}</p>
+        <p class="precio">S/ {{ repuesto.precio }}</p>
+      </div>
+    </div>
+
+    <button class="btn-whatsapp" (click)="abrirWhatsApp()">
+      Enviar WhatsApp
+    </button>
+
+    <ng-template #noSeleccion>
+      <p class="no-resultados">No hay repuestos seleccionados.</p>
+    </ng-template>
   </div>
 </div>
